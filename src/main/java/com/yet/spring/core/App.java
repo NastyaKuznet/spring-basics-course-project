@@ -50,7 +50,13 @@ public class App {
         logEvent(EventType.ERROR, event, "Some event for 2");
         
         event = ctx.getBean(Event.class);
-        logEvent(null, event, "Some event for 3");
+        logEvent(null, event, "null for 3");
+
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.INFOBD, event, "Some bd event for 1");
+
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.CONSL, event, "Some CONSL event");
     }
     
     public App() {}
@@ -64,7 +70,7 @@ public class App {
 
     private void logEvent(EventType eventType, Event event, String msg) {
         String message = msg.replaceAll(client.getId(), client.getFullName());
-        event.setMsg(message);
+        event.setMsg(message + " city: " + client.getCity());
         
         EventLogger logger = loggers.get(eventType);
         if (logger == null) {
